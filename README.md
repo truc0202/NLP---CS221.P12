@@ -5,7 +5,7 @@
   </a>
 </p>
 
-<h1 align="center"><b>CÁC HỆ CƠ SỞ TRI THỨC</b></h1>
+<h1 align="center"><b>XỬ LÝ NGÔN NGỮ TỰ NHIÊN</b></h1>
 
 # Thành viên nhóm
 | STT    | MSSV          | Họ và Tên              |Chức Vụ    | Email                   |
