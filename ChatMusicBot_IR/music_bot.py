@@ -1,6 +1,7 @@
 import pandas as pd
 import random
-from predict_model import predict_sentiment
+from predict_model import predict_sentiment  # Mô hình fine-tuning cho cảm xúc
+from predict_query import query_sentiment    # Mô hình pre-trained cho bộ dữ liệu tìm bài hát
 from recommend_similarity_song import recommend_song
 
 # Đọc dữ liệu từ tệp CSV
@@ -18,8 +19,8 @@ df = pd.read_csv(csv_path, encoding='utf-8')
 def get_sentiment_recommendation(user_input):
     sentiment = predict_sentiment(user_input)
     if sentiment == "bình thường":
-        return "Mình chưa hiểu rõ cảm xúc bạn như thế nào(vui hay buồn). Vui lòng nhập lại tâm trạng hoặc thể loại nhạc."
-    return f"Mình thấy bạn đang {sentiment}. Bạn có muốn lắng nghe những giai điệu vui tươi hay buồn bã để hòa quyện cùng cảm xúc của mình không?"
+        return "Tôi không hiểu. Xin vui lòng chia sẻ lại trạng thái cảm xúc hoặc thể loại nhạc bạn mong muốn thưởng thức."
+    return f"Mình thấy bạn đang {sentiment}. Liệu bạn có muốn nghe những giai điệu vui tươi để thêm phần hứng khởi, hay những bản nhạc buồn để đồng điệu với tâm trạng không?"
 
 text = ""
 
@@ -27,9 +28,9 @@ text = ""
 def get_music_recommendation(user_input):
     global text  # Sử dụng biến toàn cục
     # Dự đoán cảm xúc từ tin nhắn
-    sentiment = predict_sentiment(user_input)
-    if sentiment == "bình thường":
-        return "Mình chưa hiểu rõ cảm xúc bạn như thế nào(vui hay buồn). Vui lòng nhập lại tâm trạng hoặc thể loại nhạc."
+    sentiment = query_sentiment(user_input)
+    if sentiment == None:
+        return "Mình đã lắng nghe tâm tư của bạn, nhưng cảm xúc thật vẫn còn mơ hồ (vui hay buồn). Xin vui lòng chia sẻ lại trạng thái cảm xúc hoặc thể loại nhạc bạn mong muốn thưởng thức."
     if sentiment in df['label'].unique():
         song_info = random.choice(df[df['label'] == sentiment].to_dict(orient='records'))
         song_name = song_info['song_name']
@@ -68,7 +69,7 @@ if __name__ == "__main__":
     #         break
     #     recommendation = get_music_recommendation(user_input) # cho music_data = nhac
     #     print(recommendation)
-    user_input = "Hôm nay tôi cảm thấy rất vui"
+    user_input = "Hôm nay tôi cảm thấy bình thường"
     recommendation = get_music_recommendation(user_input)
     print(recommendation)
     similarity_recommendation = get_similarity_song()
