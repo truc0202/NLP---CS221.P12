@@ -20,3 +20,4 @@
 * **Năm học:** HK1 (2024 - 2025)
 * **GV Lý Thuyết:** Nguyễn Đức Vũ
 * **GV HDTH:** Nguyễn Đức Vũ
+* **Thuyết trình:** https://youtu.be/-CuTiAycVQY
